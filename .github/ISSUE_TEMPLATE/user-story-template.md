@@ -11,6 +11,6 @@ As a **role** I can capability** so that **benefit**
 
 **Acceptance criteria**
 
--[] ac1
--[] ac2
--[] ac3
+- [ ] ac1
+- [ ] ac2
+- [ ] ac3
