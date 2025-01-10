@@ -9,11 +9,29 @@ from .forms import CommentForm
 
 # Create your views here.
 class PostList(generic.ListView):
+    """
+    View to list all published blog posts.
+    
+    Attributes:
+        queryset (QuerySet): The queryset of published posts.
+        template_name (str): The template to render the post list.
+        paginate_by (int): The number of posts to display per page.
+    """
     queryset = Post.objects.filter(status=1)
     template_name = "blog/index.html"
     paginate_by = 6
 
 def post_detail(request, slug):
+    """
+    View to display the details of a single blog post, including its comments.
+    
+    Args:
+        request (HttpRequest): The request object.
+        slug (str): The slug of the post to display.
+    
+    Returns:
+        HttpResponse: The rendered post detail page.
+    """
     queryset = Post.objects.filter(status=1)
     post = get_object_or_404(queryset, slug=slug)
 
@@ -46,10 +64,17 @@ def post_detail(request, slug):
 
 def comment_edit(request, slug, comment_id):
     """
-    view to edit comments
+    View to edit an existing comment.
+    
+    Args:
+        request (HttpRequest): The request object.
+        slug (str): The slug of the post to which the comment belongs.
+        comment_id (int): The ID of the comment to edit.
+    
+    Returns:
+        HttpResponseRedirect: Redirects to the post detail page.
     """
     if request.method == "POST":
-
         queryset = Post.objects.filter(status=1)
         post = get_object_or_404(queryset, slug=slug)
         comment = get_object_or_404(Comment, pk=comment_id)
@@ -69,7 +94,15 @@ def comment_edit(request, slug, comment_id):
 
 def comment_delete(request, slug, comment_id):
     """
-    view to delete comment
+    View to delete an existing comment.
+    
+    Args:
+        request (HttpRequest): The request object.
+        slug (str): The slug of the post to which the comment belongs.
+        comment_id (int): The ID of the comment to delete.
+    
+    Returns:
+        HttpResponseRedirect: Redirects to the post detail page.
     """
     queryset = Post.objects.filter(status=1)
     post = get_object_or_404(queryset, slug=slug)
